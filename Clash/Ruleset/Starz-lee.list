@@ -1,0 +1,5 @@
+# 内容：Starz
+# 数量：3条
+USER-AGENT,*starz*
+DOMAIN-KEYWORD,starz
+DOMAIN-SUFFIX,starz.com
