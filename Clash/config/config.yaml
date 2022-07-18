@@ -104,36 +104,6 @@ proxy-groups:
       - 🇺🇸 US-DMIT-VMESS-WSS
       - 🚀 手动切换
       - DIRECT
-  - name: 🎥 DiscoveryPlus
-    type: select
-    proxies:
-      - 🇺🇲 美国节点
-      - 🇺🇲 美国自选
-      - 🇺🇸 US-DMIT-VMESS-WSS
-      - 🚀 手动切换
-      - DIRECT
-  - name: 🎥 Peacock
-    type: select
-    proxies:
-      - 🇺🇲 美国节点
-      - 🇺🇲 美国自选
-      - 🇺🇸 US-DMIT-VMESS-WSS
-      - 🚀 手动切换
-      - DIRECT
-  - name: 🎥 Hulu
-    type: select
-    proxies:
-      - 🇺🇲 美国原生
-      - 🚀 手动切换
-      - DIRECT
-  - name: 🎥 HBO
-    type: select
-    proxies:
-      - 🇺🇲 美国节点
-      - 🇺🇲 美国自选
-      - 🇺🇸 US-DMIT-VMESS-WSS
-      - 🚀 手动切换
-      - DIRECT
   - name: 📺 哔哩哔哩
     type: select
     proxies:
@@ -264,13 +234,6 @@ proxy-groups:
     tolerance: 150
     proxies:
       - 🇺🇸 US-DMIT-VMESS-WSS
-  - name: 🇺🇲 美国原生
-    type: url-test
-    url: http://www.gstatic.com/generate_204
-    interval: 300
-    tolerance: 150
-    proxies:
-      - DIRECT
   - name: 🇨🇳 台湾节点
     type: url-test
     url: http://www.gstatic.com/generate_204
@@ -2256,36 +2219,6 @@ rules:
  - DOMAIN-SUFFIX,dssott.com,🎥 DisneyPlus
  - DOMAIN-SUFFIX,execute-api.us-east-1.amazonaws.com,🎥 DisneyPlus
  - DOMAIN-SUFFIX,js-agent.newrelic.com,🎥 DisneyPlus
- - DOMAIN,cbsi.live.ott.irdeto.com,🎥 ParamountPlus
- - DOMAIN,cbsplaylistserver.aws.syncbak.com,🎥 ParamountPlus
- - DOMAIN,cbsservice.aws.syncbak.com,🎥 ParamountPlus
- - DOMAIN,link.theplatform.com,🎥 ParamountPlus
- - DOMAIN-SUFFIX,cbsaavideo.com,🎥 ParamountPlus
- - DOMAIN-SUFFIX,cbsi.com,🎥 ParamountPlus
- - DOMAIN-SUFFIX,cbsivideo.com,🎥 ParamountPlus
- - DOMAIN-SUFFIX,paramountplus.com,🎥 ParamountPlus
- - DOMAIN-SUFFIX,pplusstatic.com,🎥 ParamountPlus
- - DOMAIN-SUFFIX,disco-api.com,🎥 DiscoveryPlus
- - DOMAIN-SUFFIX,discovery.com,🎥 DiscoveryPlus
- - DOMAIN-SUFFIX,uplynk.com,🎥 DiscoveryPlus
- - DOMAIN-SUFFIX,peacocktv.com,🎥 Peacock
- - DOMAIN-SUFFIX,cws-hulu.conviva.com,🎥 Hulu
- - DOMAIN-SUFFIX,hulu.com,🎥 Hulu
- - DOMAIN-SUFFIX,hulu.hb.omtrdc.net,🎥 Hulu
- - DOMAIN-SUFFIX,hulu.sc.omtrdc.net,🎥 Hulu
- - DOMAIN-SUFFIX,huluad.com,🎥 Hulu
- - DOMAIN-SUFFIX,huluim.com,🎥 Hulu
- - DOMAIN-SUFFIX,hulustream.com,🎥 Hulu
- - DOMAIN-SUFFIX,hbo.com,🎥 HBO
- - DOMAIN-SUFFIX,hbogo.com,🎥 HBO
- - DOMAIN-SUFFIX,hbomax.com,🎥 HBO
- - DOMAIN-SUFFIX,hbomaxcdn.com,🎥 HBO
- - DOMAIN-SUFFIX,hbonow.com,🎥 HBO
- - DOMAIN-SUFFIX,hinet.net,🎥 HamiVideo
- - DOMAIN-KEYWORD,starz,🎥 Starz
- - DOMAIN-SUFFIX,starz.com,🎥 Starz
- - DOMAIN,litvfreemobile-hichannel.cdn.hinet.net,🎥 Litv
- - DOMAIN-SUFFIX,litv.tv,🎥 Litv
  - DOMAIN,p-bstarstatic.akamaized.net,📺 哔哩哔哩
  - DOMAIN,p.bstarstatic.com,📺 哔哩哔哩
  - DOMAIN,upos-bstar-mirrorakam.akamaized.net,📺 哔哩哔哩
