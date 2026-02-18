@@ -1,0 +1,66 @@
+name: Sync Upstream
+
+on:
+  schedule:
+    # 每天 UTC 04:00（北京时间 12:00）自动执行
+    - cron: '0 4 * * *'
+  workflow_dispatch: # 支持手动触发
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout fork
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Add upstream remote
+        run: git remote add upstream https://github.com/ACL4SSR/ACL4SSR.git
+
+      - name: Fetch upstream
+        run: git fetch upstream master
+
+      - name: Check for new commits
+        id: check
+        run: |
+          COUNT=$(git rev-list --count HEAD..upstream/master)
+          echo "new_commits=$COUNT" >> "$GITHUB_OUTPUT"
+          echo "Upstream has $COUNT new commit(s)"
+
+      - name: Merge upstream (accept theirs on conflicts)
+        if: steps.check.outputs.new_commits != '0'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+          # 备份 fork 独有的 workflow 文件（上游没有，合并可能破坏）
+          cp .github/workflows/sync-upstream.yml /tmp/sync-upstream.yml.bak
+
+          # 合并，冲突时接受上游内容
+          git merge -s recursive -X theirs upstream/master \
+            -m "chore: auto-sync upstream $(date -u +%Y-%m-%d)" || true
+
+          # 恢复 fork 独有的 workflow 文件
+          cp /tmp/sync-upstream.yml.bak .github/workflows/sync-upstream.yml
+
+          # 检查并修复残留 conflict markers（排除 workflow 文件自身）
+          CONFLICT_FILES=$(grep -rl '<<<<<<< HEAD' . 2>/dev/null | grep -v 'sync-upstream.yml' || true)
+          if [ -n "$CONFLICT_FILES" ]; then
+            echo "Fixing residual conflict markers in:"
+            echo "$CONFLICT_FILES"
+            while IFS= read -r f; do
+              git checkout upstream/master -- "$f" 2>/dev/null || true
+            done <<< "$CONFLICT_FILES"
+          fi
+
+          git add -A
+          git diff --cached --quiet || git commit -m "fix: resolve residual conflict markers"
+
+      - name: Push
+        if: steps.check.outputs.new_commits != '0'
+        run: git push origin master
